@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Upload Poem</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Upload Poem</h1>
+<span class="subheading">Write your ideas...</span>
+{% endblock heading %}
+
+{% block contenido %}
+<h2>
+    Poem
+</h2>
+<form method="post">
+    {% csrf_token %}
+    {{poem.as_p}}
+    <input type="submit" class="btn btn-primary" value"">
+</form>
+<br>
+{% endblock contenido %}

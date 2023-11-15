@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Upload Posts</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Upload Posts</h1>
+<span class="subheading">Write your ideas...</span>
+{% endblock heading %}
+
+{% block contenido %}
+<section align=center>
+    <a class="btn btn-primary" href="{% url 'subir_cuento' %}">Upload Story</a> ... <a class="btn btn-success" href="{% url 'subir_poema' %}">Upload Poem</a>
+</section>
+<br>
+{% endblock contenido %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Posts</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Posts</h1>
+<span class="subheading">Search Stories & Poems</span>
+{% endblock heading %} 
+
+{%block contenido%}
+<form action="{%url 'buscar_post'%}" method="post">
+    {% csrf_token %}
+    <input type="text" name="search">
+    <input type="submit" class="btn btn-dark" value="Search">
+</form>
+<br>
+<a class="btn btn-light" href="{%url 'posts'%}">See All</a>
+<br>
+<br>
+
+<h1>Stories</h1>
+
+<ul>
+    {%if cuento%}
+        {%for story in cuento%}
+            <li>
+                <h4>{{story.name}}</h4>
+                <h5>By {{story.author}}</h5>
+                <p>
+                    {{story.text}}
+                </p>
+                <p>
+                    {{story.date}}
+                </p>
+            </li>
+        {%endfor%}
+    {%else%}
+            <p>There are no published stories yet...</p>
+    {%endif%}
+</ul>
+
+<h1>Poems</h1>
+
+<ul>
+    {%if poema%}
+        {%for poem in poema%}
+            <li>
+                <h4>{{poem.name}}</h4>
+                <h5>By {{poem.author}}</h5>
+                <p>
+                    {{poem.text}}
+                </p>
+                <p>
+                    {{poem.date}}
+                </p>
+            </li>
+        {%endfor%}
+    {%else%}
+            <p>There are no published poems yet...</p>
+    {%endif%}
+</ul>
+{% endblock contenido %}

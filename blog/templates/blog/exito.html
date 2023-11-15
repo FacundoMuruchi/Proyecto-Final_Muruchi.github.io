@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+
+{% block titulo %}
+<title>Congratulations!</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Congratulations!</h1>
+<span class="subheading">You've succesfully created your account</span>
+<br>
+<br>
+<a class="btn btn-primary" href="{%url 'usuarios'%}">Registered Users</a>
+{% endblock heading %}

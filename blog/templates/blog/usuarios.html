@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Registered Users</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Registered Users</h1>
+{% endblock heading %}
+
+{% block contenido %}
+<h1>Users</h1>
+
+<ul>
+    {%if usuarios%}
+        {%for usuario in usuarios%}
+            <li>{{usuario}}</li>
+        {%endfor%}
+    {%else%}
+            <p>There are no registered users yet...</p>
+    {%endif%}
+</ul>
+
+{% endblock contenido %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Sign Up</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Sign Up</h1>
+<span class="subheading">Create your account</span>
+{% endblock heading %}
+
+{% block contenido %}
+<form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary" value"Enviar">
+</form>
+<br>
+<a class="btn btn-dark" href="{%url 'usuarios'%}">Registered Users</a>
+<br>
+<br>
+{% endblock contenido %}
