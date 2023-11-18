@@ -20,59 +20,61 @@
 <br>
 <br>
 
-<h1>Stories</h1>
+{%if object_list%}
+    <h1>Stories</h1>
 
-{%for story in post%}
-    {%if story.post == 1%}
-        <!-- Post preview-->
-        <div class="post-preview">
-            <a href="post.html">
-                <h3 class="post-title">{{story.name}}</h3>
-                <h4 class="post-subtitle">By {{ story.author }}</h4>
-            </a>
-            <p class="post-meta">
-                Posted by
-                <a href="#!">{{story.author}}</a>
-                on {{story.date}}
-            </p>
-            <form action="{%url 'eliminar_post' story.id%}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Delete">
-            </form>
-        </div>
-        <!-- Divider-->
-        <hr class="my-4" />
-    {%endif%}
-{%endfor%}
-{% comment %} {%else%}
-    <p>There are no published stories yet...</p>
-{%endif%} {% endcomment %}
+    {%for story in object_list%}
+        {%if story.post == 1%}
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="{%url 'ver_post' story.id%}">
+                    <h2>{{story.title}}</h2>
+                    <h3 class="post-subtitle">By {{ story.author }}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#!">{{story.author}}</a>
+                    on {{story.date}}
+                </p>
+                
+                <form action="{%url 'eliminar_post' story.id%}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-link" value="Delete">
+                </form>
 
-<h1>Poems</h1>
+                <a href="{% url 'editar_post' story.id%}" class="btn btn-link">Edit</a>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        {%endif%}
+    {%endfor%}
 
+    <h1>Poems</h1>
 
-{%for poem in post%}
-    {%if poem.post == 2%}
-        <!-- Post preview-->
-        <div class="post-preview">
-            <a href="post.html">
-                <h2 class="post-title">{{poem.name}}</h2>
-                <h3 class="post-subtitle">By {{ poem.author }}</h3>
-            </a>
-            <p class="post-meta">
-                Posted by
-                <a href="#!">{{poem.author}}</a>
-                on {{poem.date}}
-            </p>
-            <form action="{%url 'eliminar_post' poem.id%}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Delete">
-            </form>
-        </div>
-        <!-- Divider-->
-        <hr class="my-4" />
-
-    {%endif%}
-{%endfor%}
-
+    {%for poem in object_list%}
+        {%if poem.post == 2%}
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="{%url 'ver_post' poem.id%}">
+                    <h2>{{poem.title}}</h2>
+                    <h3 class="post-subtitle">By {{ poem.author }}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#!">{{poem.author}}</a>
+                    on {{poem.date}}
+                </p>
+                <form action="{%url 'eliminar_post' poem.id%}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-link" value="Delete">
+                </form>
+                <a href="{% url 'editar_post' poem.id%}" class="btn btn-link">Edit</a>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+        {%endif%}
+    {%endfor%}
+{%else%}
+    <p>There is nothing published yet...</p>
+{%endif%}
 {% endblock contenido %}

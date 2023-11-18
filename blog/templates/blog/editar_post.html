@@ -10,13 +10,10 @@
 {% endblock heading %}
 
 {% block contenido %}
-<h2>
-    Story
-</h2>
 <form method="post">
     {% csrf_token %}
-    {{story.media}}
-    {{story.as_p}}
+    {{form.media}}
+    {{form.as_p}}
     <input type="submit" class="btn btn-primary" value"">
 </form>
 <br>

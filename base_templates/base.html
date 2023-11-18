@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         {% block titulo %}{% endblock titulo %}
-        <link rel="icon" type="image/x-icon" href={%static 'img/libro.ico'%}/>
+        <link rel="icon" type="image/x-icon" href="{% static 'img/libro.ico' %}"/>
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={%url "inicio"%}>Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={%url "posts"%}>Posts</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={%url "subir"%}>Upload</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={%url "subir_post"%}>Upload</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={%url "cuenta"%}>Sign Up</a></li>
                     </ul>
                 </div>

@@ -12,18 +12,17 @@ class Usuario(models.Model):
         return f"{self.surname}, {self.name}"
     
 class Post(models.Model):
-    name = models.CharField(max_length=128)
+    title = models.CharField(max_length=128)
     author = models.CharField(max_length=50)
     text = RichTextField(max_length=5000)
     post = models.IntegerField(choices=[
         (1, "Story"),
         (2, "Poem")
-    ],
-    default=1)
+    ])
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         if self.post == 1:
-            return f"{self.name}, {self.author} (Story)"
+            return f"{self.title}, {self.author} (Story)"
         else:
-            return f"{self.name}, {self.author} (Poem)"
+            return f"{self.title}, {self.author} (Poem)"

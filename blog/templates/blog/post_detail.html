@@ -1,0 +1,16 @@
+{%extends "base.html"%}
+
+{% block titulo %}
+<title>{{object.title}}</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>{{object.title}}</h1>
+<span class="subheading">By {{object.author}}</span>
+{% endblock heading %}
+
+{% block contenido %}
+<p>
+    {{object.text|safe}}
+</p>
+{% endblock contenido %}
