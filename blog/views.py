@@ -115,3 +115,19 @@ def subir_poema(request):
         template_name="blog/subir_poema.html",
         context={"poem": form}
     )
+
+# ELIMINAR POEMA
+
+def eliminar_poema(request,id):
+    poema = Poema.objects.get(id=id)
+    if request.method == "POST":
+        poema.delete()
+        return redirect('posts')
+    
+# ELIMINAR CUENTO
+
+def eliminar_cuento(request,id):
+    cuento = Cuento.objects.get(id=id)
+    if request.method == "POST":
+        cuento.delete()
+        return redirect('posts')

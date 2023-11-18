@@ -22,28 +22,59 @@
 
 <h1>Stories</h1>
 
-<ul>
-    {%if cuento%}
-        {%for story in cuento%}
-            <li>
-                <h4>{{story.name}}</h4>
-                <h5>By {{story.author}}</h5>
-                <p>
-                    {{story.text}}
-                </p>
-                <p>
-                    {{story.date}}
-                </p>
-            </li>
-        {%endfor%}
-    {%else%}
-            <p>There are no published stories yet...</p>
-    {%endif%}
-</ul>
+{%if cuento%}
+    {%for story in cuento%}
+        <!-- Post preview-->
+        <div class="post-preview">
+            <a href="post.html">
+                <h2 class="post-title">{{story.name}}</h2>
+                <h3 class="post-subtitle">{{ story.text|truncatewords:10 }}</h3>
+            </a>
+            <p class="post-meta">
+                Posted by
+                <a href="#!">{{story.author}}</a>
+                on {{story.date}}
+            </p>
+            <form action="{%url 'eliminar_cuento' story.id%}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete" class="btn btn-link">
+            </form>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {%endfor%}
+{%else%}
+    <p>There are no published stories yet...</p>
+{%endif%}
 
 <h1>Poems</h1>
 
-<ul>
+{%if poema%}
+    {%for poem in poema%}
+        <!-- Post preview-->
+        <div class="post-preview">
+            <a href="post.html">
+                <h2 class="post-title">{{poem.name}}</h2>
+                <h3 class="post-subtitle">{{ poem.text|truncatewords:10 }}</h3>
+            </a>
+            <p class="post-meta">
+                Posted by
+                <a href="#!">{{poem.author}}</a>
+                on {{poem.date}}
+            </p>
+            <form action="{%url 'eliminar_poema' poem.id%}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete" class="btn btn-link">
+            </form>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {%endfor%}
+{%else%}
+    <p>There are no published poems yet...</p>
+{%endif%}
+
+{% comment %} <ul>
     {%if poema%}
         {%for poem in poema%}
             <li>
@@ -60,5 +91,5 @@
     {%else%}
             <p>There are no published poems yet...</p>
     {%endif%}
-</ul>
+</ul> {% endcomment %}
 {% endblock contenido %}
