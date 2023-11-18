@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class Usuario(models.Model):
     name = models.CharField(max_length=50)
@@ -9,21 +10,20 @@ class Usuario(models.Model):
 
     def __str__(self):
         return f"{self.surname}, {self.name}"
-
-class Poema(models.Model):
+    
+class Post(models.Model):
     name = models.CharField(max_length=128)
-    text = models.TextField()
     author = models.CharField(max_length=50)
+    text = RichTextField(max_length=5000)
+    post = models.IntegerField(choices=[
+        (1, "Story"),
+        (2, "Poem")
+    ],
+    default=1)
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name}, {self.author}"
-
-class Cuento(models.Model):
-    name = models.CharField(max_length=128)
-    text = models.TextField()
-    author = models.CharField(max_length=50)
-    date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.name}, {self.author}"
+        if self.post == 1:
+            return f"{self.name}, {self.author} (Story)"
+        else:
+            return f"{self.name}, {self.author} (Poem)"

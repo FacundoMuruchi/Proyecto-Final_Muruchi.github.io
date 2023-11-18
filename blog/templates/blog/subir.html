@@ -10,8 +10,11 @@
 {% endblock heading %}
 
 {% block contenido %}
-<section align=center>
-    <a class="btn btn-primary" href="{% url 'subir_cuento' %}">Upload Story</a> ... <a class="btn btn-success" href="{% url 'subir_poema' %}">Upload Poem</a>
-</section>
+<form method="post">
+    {% csrf_token %}
+    {{form.media}}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary" value"">
+</form>
 <br>
 {% endblock contenido %}

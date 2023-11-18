@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Usuario, Cuento, Poema
-from .forms import UserForm, PoemForm, StoryForm
+from .models import Usuario, Post
+from .forms import UserForm, PostForm
 from django.urls import reverse
 
 # Create your views here.
@@ -49,54 +49,38 @@ def usuarios(request):
 def posts(request):
     return render(request,
                   "blog/posts.html",
-                  context={"cuento": Cuento.objects.all(), "poema": Poema.objects.all()})
+                  context={"post": Post.objects.all()})
 
 # BUSCAR POST
 
 def buscar_post(request):
     if request.method == "POST":
         data = request.POST
-        cuento = Cuento.objects.filter(name__contains=data["search"].title())
-        poema = Poema.objects.filter(name__contains=data["search"].title())
+        post = Post.objects.filter(name__contains=data["search"].title())
 
         return render(
             request=request,
             template_name="blog/posts.html",
-            context={"cuento": cuento, "poema": poema}
+            context={"post":post}
         )
 
 # SUBIR POSTS
 
 def subir(request):
-    return render(
-        request=request,
-        template_name="blog/subir.html"
-    )
-
-# CUENTO
-def subir_cuento(request):
     if request.method == "POST":
-        form = StoryForm(request.POST)
+        form = PostForm(request.POST)
 
         if form.is_valid():
             data = form.cleaned_data
-            story = Cuento(name=data["name"].title(), text=data["text"], author=data["author"].title())
-            story.save()
+            post = Post(name=data["name"].title(), author=data["author"].title(), text=data["text"], post=data["post"])
+            post.save()
 
-            url_exitosa = reverse("posts")
-            return redirect(url_exitosa)
+            return redirect("posts")
+        
     else:
-        form = StoryForm()
+        form = PostForm
 
-    return render(
-        request=request,
-        template_name="blog/subir_cuento.html",
-        context={"story": form}
-    )
-
-# POEMA
-
-def subir_poema(request):
+    return render(request,"blog/subir.html", context={"form": form})
     if request.method == "POST":
         form = PoemForm(request.POST)
 
@@ -116,18 +100,36 @@ def subir_poema(request):
         context={"poem": form}
     )
 
-# ELIMINAR POEMA
+# ELIMINAR POSTS
 
-def eliminar_poema(request,id):
-    poema = Poema.objects.get(id=id)
-    if request.method == "POST":
-        poema.delete()
-        return redirect('posts')
-    
-# ELIMINAR CUENTO
-
-def eliminar_cuento(request,id):
-    cuento = Cuento.objects.get(id=id)
+def eliminar_post(request,id):
+    cuento = Post.objects.get(id=id)
     if request.method == "POST":
         cuento.delete()
         return redirect('posts')
+    
+# EDITAR
+
+def editar_curso(request, id):
+   curso = Curso.objects.get(id=id)
+   if request.method == "POST":
+       formulario = CursoFormulario(request.POST)
+
+       if formulario.is_valid():
+           data = formulario.cleaned_data
+           curso.nombre = data['nombre']
+           curso.comision = data['comision']
+           curso.save()
+           url_exitosa = reverse('listar_cursos')
+           return redirect(url_exitosa)
+   else:  # GET
+       inicial = {
+           'nombre': curso.nombre,
+           'comision': curso.comision,
+       }
+       formulario = CursoFormulario(initial=inicial)
+   return render(
+       request=request,
+       template_name='estudiantes/formulario_curso.html',
+       context={'formulario': formulario},
+   )

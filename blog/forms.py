@@ -1,4 +1,5 @@
 from django import forms
+from .models import Post
 
 class UserForm(forms.Form):
     name = forms.CharField(max_length=50, required=True)
@@ -7,12 +8,7 @@ class UserForm(forms.Form):
     age = forms.IntegerField(max_value=99, required=False)
     email = forms.EmailField(max_length=256, required=False)
 
-class PoemForm(forms.Form):
-    name = forms.CharField(max_length=128, required=True)
-    author = forms.CharField(max_length=50, required=True)
-    text = forms.CharField(max_length=5000, required=True, widget=forms.Textarea)
-    
-class StoryForm(forms.Form):
-    name = forms.CharField(max_length=128, required=True)
-    author = forms.CharField(max_length=50, required=True)
-    text = forms.CharField(max_length=5000, required=True, widget=forms.Textarea)
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['name','author','text','post']

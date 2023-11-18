@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-<title>Upload Poem</title>
+<title>Edit Post</title>
 {% endblock titulo %}
 
 {% block heading %}
-<h1>Upload Poem</h1>
-<span class="subheading">Write your ideas...</span>
+<h1>Edit Post</h1>
+<span class="subheading">Rewrite Ideas...</span>
 {% endblock heading %}
 
 {% block contenido %}
 <h2>
-    Poem
+    Story
 </h2>
 <form method="post">
     {% csrf_token %}
-    {{poem.as_p}}
+    {{story.media}}
+    {{story.as_p}}
     <input type="submit" class="btn btn-primary" value"">
 </form>
 <br>
