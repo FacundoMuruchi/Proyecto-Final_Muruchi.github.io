@@ -12,7 +12,7 @@
 {%block contenido%}
 <form action="{%url 'buscar_post'%}" method="post">
     {% csrf_token %}
-    <input type="text" name="search">
+    <input type="text" name="busqueda">
     <input type="submit" class="btn btn-dark" value="Search">
 </form>
 <br>
@@ -29,20 +29,21 @@
             <div class="post-preview">
                 <a href="{%url 'ver_post' story.id%}">
                     <h2>{{story.title}}</h2>
-                    <h3 class="post-subtitle">By {{ story.author }}</h3>
+                    <h3 class="post-subtitle">{{ story.text|safe|truncatewords:10 }}</h3>
                 </a>
                 <p class="post-meta">
                     Posted by
                     <a href="#!">{{story.author}}</a>
                     on {{story.date}}
                 </p>
+
+                <a href="{% url 'editar_post' story.id%}" class="btn btn-link">Edit</a>
                 
                 <form action="{%url 'eliminar_post' story.id%}" method="post">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-link" value="Delete">
                 </form>
 
-                <a href="{% url 'editar_post' story.id%}" class="btn btn-link">Edit</a>
             </div>
             <!-- Divider-->
             <hr class="my-4" />
@@ -57,18 +58,20 @@
             <div class="post-preview">
                 <a href="{%url 'ver_post' poem.id%}">
                     <h2>{{poem.title}}</h2>
-                    <h3 class="post-subtitle">By {{ poem.author }}</h3>
+                    <h3 class="post-subtitle">{{ poem.text|safe|truncatewords:10 }}</h3>
                 </a>
                 <p class="post-meta">
                     Posted by
                     <a href="#!">{{poem.author}}</a>
                     on {{poem.date}}
                 </p>
+
+                <a href="{% url 'editar_post' poem.id%}" class="btn btn-link">Edit</a>
+
                 <form action="{%url 'eliminar_post' poem.id%}" method="post">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-link" value="Delete">
                 </form>
-                <a href="{% url 'editar_post' poem.id%}" class="btn btn-link">Edit</a>
             </div>
             <!-- Divider-->
             <hr class="my-4" />

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Log In</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Log In</h1>
+<span class="subheading">Log into your account</span>
+{% endblock heading %}
+
+{% block contenido %}
+<form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary" value"Enviar">
+</form>
+<br>
+{% endblock contenido %}

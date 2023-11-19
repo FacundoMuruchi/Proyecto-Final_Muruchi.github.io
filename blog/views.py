@@ -1,55 +1,25 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import render
+from django.urls import reverse_lazy
 
-from .models import Usuario, Post
-from .forms import UserForm
+from .models import Post
 
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+
+from django.db.models import Q
 
 # Create your views here.
 
 def inicio(request):
     return render(request, "inicio.html")
 
-# CREAR CUENTA
-def crear_cuenta(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
-
-        if form.is_valid():
-            data = form.cleaned_data
-            user=Usuario(name=data["name"], surname=data["surname"], password=data["password"], age=data["age"], email=data["email"])
-            user.save()
-
-            url_exitosa = reverse("exito")
-            return redirect(url_exitosa)
-    else:
-        form = UserForm()
-
-    return render(
-        request=request,
-        template_name="blog/cuenta.html",
-        context={"form":form}
-    )
-        
-# CUENTA CREADA 
-def exito(request):
-    return render(request, "blog/exito.html")
-
-# VER CUENTAS
-def usuarios(request):
-    return render(
-        request=request,
-        template_name="blog/usuarios.html",
-        context={"usuarios": Usuario.objects.all()}
-    )
-
 # BUSCAR POST
 def buscar_post(request):
     if request.method == "POST":
         data = request.POST
-        post = Post.objects.filter(name__contains=data["search"].title())
-
+        busqueda = data["busqueda"]
+        post = Post.objects.filter(
+            Q(title__contains=busqueda) | Q(text__contains=busqueda)
+        )
         return render(
             request=request,
             template_name="blog/posts.html",
