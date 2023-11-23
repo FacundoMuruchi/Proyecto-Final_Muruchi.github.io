@@ -32,8 +32,9 @@ def exito(request):
     return render(request, "profiles/exito.html")
 
 # LOGIN
-
 def login_user(request):
+   next_url = request.GET.get('next')
+
    if request.method == "POST":
        form = AuthenticationForm(request, data=request.POST)
 
@@ -48,6 +49,10 @@ def login_user(request):
            # user puede ser un usuario o None
            if user:
                login(request=request, user=user)
+               
+               if next_url:
+                   return redirect(next_url)
+               
                return redirect('inicio')
            
    else:  # GET
@@ -60,6 +65,5 @@ def login_user(request):
    )
 
 # LOGOUT
-
 class CustomLogoutView(LogoutView):
-    template_name = 'profiles/logout.html'
+    template_name = 'home.html'

@@ -10,8 +10,13 @@
 <br>
 <br>
 <br>
-<h1>Digital Library</h1>
-<span class="subheading">Welcome {{user.username}}!</span>
+{% if user.is_authenticated %}
+    <h1>Digital Library</h1>
+    <span class="subheading">Welcome <b>{{user.username}}!</b></span>
+{% else %}
+    <h1>Digital Library</h1>
+    <span class="subheading">Stories & Poems</span>
+{% endif %}
 <br>
 <br>
 <br>

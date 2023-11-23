@@ -10,9 +10,11 @@
 {% endblock heading %} 
 
 {%block contenido%}
+
+<!-- FORMULARIO -->
 <form action="{%url 'buscar_post'%}" method="post">
     {% csrf_token %}
-    <input type="text" name="busqueda">
+    <input type="text" name="busqueda" value="{{ busqueda }}">
     <input type="submit" class="btn btn-dark" value="Search">
 </form>
 <br>
@@ -20,7 +22,18 @@
 <br>
 <br>
 
-{%if object_list%}
+<!-- RESULTADOS DE BUSQUEDA -->
+{% if post %}
+    {% for pub in post %}
+        <ul>
+            <li><a href="{%url 'ver_post' pub.id%}">{{ pub }}</a></li>
+        </ul>
+    {% endfor %}
+
+<!-- PAGINA INICIAL -->
+{% elif object_list%}
+
+    <!-- STORIES -->
     <h1>Stories</h1>
 
     {%for story in object_list%}
@@ -33,16 +46,18 @@
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="#!">{{story.author}}</a>
+                    <a href="#!">{{story.creator}}</a>
                     on {{story.date}}
                 </p>
 
-                <a href="{% url 'editar_post' story.id%}" class="btn btn-link">Edit</a>
-                
-                <form action="{%url 'eliminar_post' story.id%}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-link" value="Delete">
-                </form>
+                {% if user == story.creator %}
+                    <a href="{% url 'editar_post' story.id%}" class="btn btn-link">Edit</a>
+                    
+                    <form action="{%url 'eliminar_post' story.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-link" value="Delete">
+                    </form>
+                {% endif %}
 
             </div>
             <!-- Divider-->
@@ -50,6 +65,7 @@
         {%endif%}
     {%endfor%}
 
+    <!-- POEMS -->
     <h1>Poems</h1>
 
     {%for poem in object_list%}
@@ -62,22 +78,28 @@
                 </a>
                 <p class="post-meta">
                     Posted by
-                    <a href="#!">{{poem.author}}</a>
+                    <a href="#!">{{poem.creator}}</a>
                     on {{poem.date}}
                 </p>
 
-                <a href="{% url 'editar_post' poem.id%}" class="btn btn-link">Edit</a>
+                {% if user == poem.creator %}
+                    <a href="{% url 'editar_post' poem.id%}" class="btn btn-link">Edit</a>
 
-                <form action="{%url 'eliminar_post' poem.id%}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-link" value="Delete">
-                </form>
+                    <form action="{%url 'eliminar_post' poem.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-link" value="Delete">
+                    </form>
+                {% endif %}
+
             </div>
             <!-- Divider-->
             <hr class="my-4" />
         {%endif%}
     {%endfor%}
-{%else%}
-    <p>There is nothing published yet...</p>
-{%endif%}
+{% else %}
+<!-- SI NO HAY NADA PUBLICADO -->
+    <p>
+        <a href="{% url 'subir_post' %}">Be the first to post!</a>
+    </p>
+{% endif %}
 {% endblock contenido %}
