@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Update Profile</title>
+{% endblock titulo %}
+
+{% block heading %}
+
+<h1>Update Profile</h1>
+<span class="subheading">Edit your data</span>
+
+{% endblock heading %}
+
+{% block contenido %}
+<h3>Update Account</h3>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary">
+</form>
+<br>
+
+{% endblock contenido %}

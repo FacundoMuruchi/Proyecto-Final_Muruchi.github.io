@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+{% load static %}
+
+{% block titulo %}
+<title>About Me</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>About Me</h1>
+<span class="subheading">Facundo Muruchi</b></span>
+{% endblock heading %}
+
+{% block contenido %}
+<p>
+    Hi! my name is Facundo and I'm a 17-year-old guy who is starting his programming career. I'm a Coderhouse studient learning about Python and Django, essential tools for functional web-sites like this digital library.
+</p>
+<p>
+    I've always been really into music, but I'm currently looking for new passions related to technology in order to work my way up to creating attractive useful web-pages. 
+</p>
+
+<img width="700" src="{% static "img/about.jpg" %}" alt="Facundo Muruchi">
+<br>
+<br>
+{% endblock contenido %}

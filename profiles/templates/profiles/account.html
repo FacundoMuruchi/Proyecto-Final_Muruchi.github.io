@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+<title>Profile</title>
+{% endblock titulo %}
+
+{% block heading %}
+<h1>Profile</h1>
+<span class="subheading">Your account</span>
+{% endblock heading %}
+
+{% block contenido %}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+        <tr>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<a class="btn btn-primary" href="{%url 'edit_account'%}">Update Profile</a>
+<br>
+<br>
+{% endblock contenido %}

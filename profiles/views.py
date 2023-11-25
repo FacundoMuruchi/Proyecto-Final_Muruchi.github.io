@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -67,3 +70,16 @@ def login_user(request):
 # LOGOUT
 class CustomLogoutView(LogoutView):
     template_name = 'home.html'
+
+# PROFILE
+def profile(request):
+    return render(request, 'profiles/account.html')
+
+# EDIT 
+class AccountUpdateView(LoginRequiredMixin, UpdateView):
+   form_class = UserUpdateForm
+   success_url = reverse_lazy('account')
+   template_name = 'profiles/edit.html'
+
+   def get_object(self, queryset=None):
+       return self.request.user

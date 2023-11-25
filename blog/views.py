@@ -30,6 +30,10 @@ class PostListView(ListView):
     model = Post
     template_name = "blog/posts.html"
 
+# ABOUT ME
+def about(request):
+    return render(request,'blog/about.html')
+
 # VER DETALLES
 class PostDetailView(DetailView):
     model = Post
@@ -56,5 +60,5 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = "blog/editar_post.html"
-    fields = ['title','author','text','post']
+    fields = ['title','text','post']
     success_url = reverse_lazy("posts")
